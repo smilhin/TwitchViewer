@@ -1,0 +1,19 @@
+{
+  "name": "twitchviewer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "workspaces": [
+    "server",
+    "web",
+    "shared"
+  ],
+  "dependencies": {
+    "@videojs/react": "^10.2.0"
+  }
+}

@@ -1,0 +1,9 @@
+# Folders
+node_modules/
+dist/
+recordings/
+.idea/
+server/data/
+
+# Files
+.env
