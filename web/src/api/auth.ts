@@ -2,7 +2,7 @@ import type {User} from "@twitchviewer/shared";
 
 type Credentials = { name: string; password: string };
 
-async function errorMessage(response: Response, fallback: string): Promise<string> {
+export async function errorMessage(response: Response, fallback: string): Promise<string> {
     const data = await response.json().catch(() => null);
     return data?.error ?? fallback;
 }

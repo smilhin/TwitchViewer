@@ -1,10 +1,17 @@
-import type {Streamer} from "@twitchviewer/shared";
+import {errorMessage} from "@/api/auth.ts";
 
+export async function getStreamers(): Promise<string[]> {
+    const response = await fetch("/api/streamers");
+    if (!response.ok) throw new Error(`response status: ${response.status}`);
+    return response.json();
+}
 
-export async function getStreamers(): Promise<Streamer[]> {
-    const response = await fetch(`/api/streamers`, {});
-    if (!response.ok) {
-        throw new Error(`response status: ${response.status}`);
-    }
-    return await response.json();
+export async function addStreamer(channelName: string): Promise<{ channelName: string }> {
+    const response = await fetch("/api/streamers", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({channelName}),
+    });
+    if (!response.ok) throw new Error(await errorMessage(response, "Could not add streamer"));
+    return response.json();
 }

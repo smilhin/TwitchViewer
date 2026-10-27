@@ -8,6 +8,7 @@ import {RegisterPage} from "@/pages/RegisterPage.tsx";
 import {AccountPage} from "@/pages/AccountPage.tsx";
 import {LoginLayout} from "@/components/layout/LoginLayout.tsx";
 import {RequireAuth} from "@/components/twitchviewer-ui/RequireAuth.tsx";
+import {Toaster} from "@/components/ui/sonner.tsx";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                     <Route path="/register" element={<RegisterPage/>}/>
                 </Route>
             </Routes>
+            <Toaster/>
         </>
     )
 }

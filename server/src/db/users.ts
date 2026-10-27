@@ -20,3 +20,8 @@ export function getUserChannels(userId: string): string[] {
 export function insertUser(id: string, name: string, passwordHash: string): void {
     db.prepare("INSERT INTO users (id, name, password_hash) VALUES (?, ?, ?)").run(id, name, passwordHash);
 }
+
+export function insertStreamer(userId: string, channelName: string): boolean {
+    const result = db.prepare("INSERT OR IGNORE INTO user_streamers (user_id, channel) VALUES (?, ?)").run(userId, channelName);
+    return result.changes > 0;
+}
