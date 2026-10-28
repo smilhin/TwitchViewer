@@ -6,6 +6,7 @@ import {type SyntheticEvent, useState} from "react";
 import {useAddStreamer} from "@/hooks/useAddStreamer.ts";
 import {useCurrentUser} from "@/hooks/useCurrentUser.ts";
 import {toast} from "sonner";
+import {StreamerCard} from "@/components/twitchviewer-ui/StreamerCard.tsx";
 
 export function HomePage() {
     const {data: user} = useCurrentUser();
@@ -33,33 +34,38 @@ export function HomePage() {
 
 
     return (
-        <div className={"mx-auto w-full max-w-md"}>
-            <Card>
-                <CardHeader>
-                    <CardTitle>Subscribe to your streamer</CardTitle>
-                    <CardDescription>Streamer's name must be correct</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <form onSubmit={handleSubmit}>
-                        <FieldGroup className={"flex flex-row gap-2"}>
-                            <Field>
-                                <Input
-                                    placeholder={"Subscribe to your streamer"}
-                                    value={channelName}
-                                    onChange={(e) => setChannelName(e.target.value)}
-                                    required
-                                />
-                            </Field>
-                            <Field className={"flex w-30"}>
-                                <Button type="submit" disabled={isPending}>
-                                    {isPending ? "Subscribing..." : "Subscribe"}
-                                </Button>
-                            </Field>
-                        </FieldGroup>
-                        {error && <p className="mt-2 text-sm text-destructive">{error.message}</p>}
-                    </form>
-                </CardContent>
-            </Card>
-        </div>
+        <>
+            <div className={"mx-auto w-full max-w-md"}>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Subscribe to your streamer</CardTitle>
+                        <CardDescription>Streamer's name must be correct</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <form onSubmit={handleSubmit}>
+                            <FieldGroup className={"flex flex-row gap-2"}>
+                                <Field>
+                                    <Input
+                                        placeholder={"Subscribe to your streamer"}
+                                        value={channelName}
+                                        onChange={(e) => setChannelName(e.target.value)}
+                                        required
+                                    />
+                                </Field>
+                                <Field className={"flex w-30"}>
+                                    <Button type="submit" disabled={isPending}>
+                                        {isPending ? "Subscribing..." : "Subscribe"}
+                                    </Button>
+                                </Field>
+                            </FieldGroup>
+                            {error && <p className="mt-2 text-sm text-destructive">{error.message}</p>}
+                        </form>
+                    </CardContent>
+                </Card>
+            </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {user?.streamers.map((s) => <StreamerCard username={s}/>)}
+            </div>
+        </>
     );
 }
