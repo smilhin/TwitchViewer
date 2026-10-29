@@ -7,11 +7,14 @@ import {useAddStreamer} from "@/hooks/useAddStreamer.ts";
 import {useCurrentUser} from "@/hooks/useCurrentUser.ts";
 import {toast} from "sonner";
 import {StreamerCard} from "@/components/twitchviewer-ui/StreamerCard.tsx";
+import {useStreamers} from "@/hooks/useStreamers.ts";
+import {Skeleton} from "@/components/ui/skeleton.tsx";
 
 export function HomePage() {
     const {data: user} = useCurrentUser();
     const [channelName, setChannelName] = useState("");
     const {mutate, isPending, error} = useAddStreamer();
+    const {data: streamers, isPending: loadingStreamers} = useStreamers();
 
     function handleSubmit(e: SyntheticEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -31,7 +34,6 @@ export function HomePage() {
             onError: (err) => toast.error(err.message),
         });
     }
-
 
     return (
         <>
@@ -64,7 +66,9 @@ export function HomePage() {
                 </Card>
             </div>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {user?.streamers.map((s) => <StreamerCard username={s}/>)}
+                {loadingStreamers
+                    ? Array.from({length: 3}, (_, i) => <Skeleton key={i} className="h-56 rounded-xl"/>)
+                    : streamers?.map((s) => <StreamerCard streamer={s}/>)}
             </div>
         </>
     );

@@ -7,12 +7,13 @@ export function useAddStreamer() {
 
     return useMutation({
         mutationFn: addStreamer,
-        onSuccess: ({channelName}) => {
+        onSuccess: async ({channelName}) => {
             queryClient.setQueryData<User | null>(["me"], (old) =>
                 old && !old.streamers.includes(channelName)
                     ? {...old, streamers: [...old.streamers, channelName]}
                     : old
             );
+            await queryClient.invalidateQueries({queryKey: ["streamers"]});
         },
     });
 }

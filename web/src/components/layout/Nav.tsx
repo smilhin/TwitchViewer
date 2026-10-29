@@ -63,7 +63,8 @@ export function Nav() {
                     </DropdownMenu>
                 </nav>
 
-                <div className="flex justify-end"><a href="https://github.com/smilhin">Me on GitHub!</a></div>
+                <div className="flex justify-end"><a target="_blank" rel="noopener noreferrer"
+                                                     href="https://github.com/smilhin">Me on GitHub!</a></div>
             </div>
         </header>
     );

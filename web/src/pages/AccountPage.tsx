@@ -80,7 +80,8 @@ export function AccountPage() {
                     </ItemGroup>
                     <Popover>
                         <PopoverTrigger
-                            render={<Button className={"my-2 h-10"} variant="outline">Unsubscribe</Button>}/>
+                            render={<Button className={"my-2 h-10"} variant="outline"
+                                            disabled={user.streamers.length === 0}>Unsubscribe</Button>}/>
                         <PopoverContent className="w-80">
                             <form onSubmit={handleSubmit}>
                                 <FieldGroup className="max-w-sm">

@@ -1,8 +1,9 @@
 import {errorMessage} from "@/api/auth.ts";
+import type {Streamer} from "@twitchviewer/shared/src/types.ts";
 
-export async function getStreamers(): Promise<string[]> {
+export async function getStreamers(): Promise<Streamer[]> {
     const response = await fetch("/api/streamers");
-    if (!response.ok) throw new Error(`response status: ${response.status}`);
+    if (!response.ok) throw new Error(await errorMessage(response, "Could not load streamers"));
     return response.json();
 }
 

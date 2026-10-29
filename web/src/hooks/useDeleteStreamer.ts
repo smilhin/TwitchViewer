@@ -7,7 +7,7 @@ export function useDeleteStreamer() {
 
     return useMutation({
         mutationFn: deleteStreamer,
-        onSuccess: ({channelName}) => {
+        onSuccess: async ({channelName}) => {
             queryClient.setQueryData<User | null>(["me"], (old) =>
                 old && old.streamers.includes(channelName)
                     ? {
@@ -17,6 +17,7 @@ export function useDeleteStreamer() {
                     }
                     : old
             );
+            await queryClient.invalidateQueries({queryKey: ["streamers"]});
         },
     });
 }

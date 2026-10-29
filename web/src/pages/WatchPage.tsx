@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/combobox.tsx";
 import {useCurrentUser} from "@/hooks/useCurrentUser.ts";
 import {useState} from "react";
+import {getRecordings} from "@/api/recordings.ts";
+import {useQuery} from "@tanstack/react-query";
 
 const recordings = [""];
 
@@ -22,14 +24,24 @@ export function WatchPage() {
         params.get("file") ?? ""
     );
 
-
     const {data: user} = useCurrentUser();
     const streamers = user?.streamers;
+
+    const {data: recordingList} = useQuery({
+        queryKey: ["recordings", selectedStreamer],
+        queryFn: () => getRecordings(selectedStreamer),
+        enabled: selectedStreamer !== "",
+    });
+    const recordings = recordingList?.map((r) => r.file) ?? [];
+
     return (
         <div className={"flex flex-col gap-3"}>
             <div className="flex flex-row gap-2 w-full max-w-sm">
                 <Combobox items={streamers} value={selectedStreamer}
-                          onValueChange={(value) => setSelectedStreamer(value ?? "")}
+                          onValueChange={(value) => {
+                              setSelectedStreamer(value ?? "")
+                              setSelectedRecording("");
+                          }}
                 >
                     <ComboboxInput placeholder={"Select a streamer..."}/>
                     <ComboboxContent>
@@ -57,7 +69,10 @@ export function WatchPage() {
 
             <VideoPlayer>
                 <VideoSkin style={{width: '100%', aspectRatio: '16 / 9'}}>
-                    <Video src={""} playsInline/>
+                    {selectedStreamer && selectedRecording && (
+                        <Video src={`/api/recordings/${selectedStreamer}/${selectedRecording}`}
+                               playsInline/>
+                    )}
                 </VideoSkin>
             </VideoPlayer>
         </div>);
