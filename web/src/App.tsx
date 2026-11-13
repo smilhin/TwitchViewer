@@ -9,6 +9,7 @@ import {AccountPage} from "@/pages/AccountPage.tsx";
 import {LoginLayout} from "@/components/layout/LoginLayout.tsx";
 import {RequireAuth} from "@/components/twitchviewer-ui/RequireAuth.tsx";
 import {Toaster} from "@/components/ui/sonner.tsx";
+import {StreamerPage} from "@/pages/StreamerPage.tsx";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
                         <Route path="/" element={<HomePage/>}/>
                         <Route path="/settings" element={<SettingsPage/>}/>
                         <Route path="/watch" element={<WatchPage/>}/>
+                        <Route path="/streamer" element={<StreamerPage/>}/>
                         <Route path="/account" element={<AccountPage/>}/>
                     </Route>
                 </Route>

@@ -24,7 +24,8 @@ export function Nav() {
         <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
             <div className="mx-auto grid h-14 max-w-6xl grid-cols-3 items-center px-6">
                 <div className="flex justify-start font-semibold"><img src={"/logo.png"} alt={""}
-                                                                       className="h-8 w-auto mr-2"/>TwitchViewer
+                                                                       className="h-8 w-auto mr-2"/><a
+                    href={"/"}>TwitchViewer</a>
                 </div>
 
                 <nav className="flex justify-center gap-1">
