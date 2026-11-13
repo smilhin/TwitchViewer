@@ -17,9 +17,15 @@ export function StreamerCard({streamer}: StreamerCardProps) {
         <Card className={"m-5 mx-auto"} key={streamer.username}>
             <Link to={`/watch?${params}`}>
                 <div className={"aspect-video bg-muted rounded-4xl m-2"}>
-                    <img src="../../../public/logo.png" alt="streamer.logo"
+                    <img src={`/api/streamer-pfp/${streamer.username}`} alt="streamer.logo"
                          className="h-full w-full object-cover rounded-4xl"
-                         loading="lazy"/>
+                         loading="lazy"
+                         onError={(e) => {
+                             const img = e.currentTarget;
+                             img.onerror = null;
+                             img.src = "../../../public/logo.png";
+                         }}
+                    />
                 </div>
             </Link>
             <CardHeader>

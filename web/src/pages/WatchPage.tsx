@@ -13,8 +13,6 @@ import {useState} from "react";
 import {getRecordings} from "@/api/recordings.ts";
 import {useQuery} from "@tanstack/react-query";
 
-const recordings = [""];
-
 export function WatchPage() {
     const params = new URLSearchParams(window.location.search);
     const [selectedStreamer, setSelectedStreamer] = useState(
@@ -60,7 +58,8 @@ export function WatchPage() {
                         <ComboboxEmpty>No recordings found.</ComboboxEmpty>
                         <ComboboxList>
                             {(item) => (
-                                <ComboboxItem key={item} value={item}>{item}</ComboboxItem>
+                                <ComboboxItem key={item}
+                                              value={item}>{item.match(/\d{4}-\d{2}-\d{2}/)?.[0]}</ComboboxItem>
                             )}
                         </ComboboxList>
                     </ComboboxContent>
